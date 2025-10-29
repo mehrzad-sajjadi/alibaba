@@ -1,0 +1,13 @@
+{
+    "HomePage": {
+        "title": "Hello world!",
+        "origin": "Origin",
+        "destination": "Destination",
+        "enterOrigin": "Please enter the origin",
+        "enterDestination": "Please enter the destination",
+        "date": "Date",
+        "enterDate": "Please enter the date",
+        "search": "Search"
+
+    }
+}

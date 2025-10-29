@@ -1,0 +1,12 @@
+{
+    "HomePage": {
+        "title": "مرحباً بالعالم!",
+        "origin": "المنشأ",
+        "destination": "الوجهة",
+        "enterOrigin": "يرجى إدخال المنشأ",
+        "enterDestination": "يرجى إدخال الوجهة",
+        "date": "التاريخ",
+        "enterDate": "يرجى إدخال التاريخ",
+        "search": "بحث"
+    }
+}

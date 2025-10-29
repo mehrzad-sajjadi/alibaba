@@ -1,0 +1,12 @@
+{
+    "HomePage": {
+        "title": "دورود دنیا",
+        "origin": "مبدا",
+        "destination": "مقصد",
+        "enterOrigin": "لطفا مبدا را وارد کنید",
+        "enterDestination": "لطفا مقصد را وارد کنید",
+        "date": "تاریخ",
+        "enterDate": "لطفا تاریخ را وارد کنید",
+        "search": "جستجو"
+    }
+}
