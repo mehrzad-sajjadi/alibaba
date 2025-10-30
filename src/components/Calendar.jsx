@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";

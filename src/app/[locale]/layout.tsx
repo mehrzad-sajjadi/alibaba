@@ -1,4 +1,5 @@
 import "./globals.css";
+import {NextIntlClientProvider} from 'next-intl';
 
 export default function DashboardLayout({
     children,
@@ -6,11 +7,15 @@ export default function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
+        <html>
             <body>
                 {/* Layout UI */}
                 {/* Place children where you want to render a page or nested layout */}
-                <main>{children}</main>
+                    <main>
+                        <NextIntlClientProvider>
+                            {children}
+                        </NextIntlClientProvider>
+                    </main>
             </body>
         </html>
     )
