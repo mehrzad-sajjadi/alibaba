@@ -13,9 +13,17 @@ export default function SearchBox() {
         destination:"",
         date:""
     });
+    const [error,useError] = setError({
+        origin:"",
+        destination:"",
+        date:""        
+    })
+    
+    function changeHandler(){
 
-    function changeHandler(e){
-        setFormData({...setFormData,[e.target.param]:e.target.value})
+    }
+    function submitHandler(){
+    
     }
 
     return (
@@ -25,6 +33,7 @@ export default function SearchBox() {
 
                     <div className="flex flex-col w-64">
                         <input
+                            name="origin"
                             value={formData.origin}
                             onChange={changeHandler}
                             placeholder={t('origin')}
@@ -37,6 +46,7 @@ export default function SearchBox() {
 
                     <div className="flex flex-col w-64">
                         <input
+                            name="destination"
                             value={formData.destination}
                             onChange={changeHandler}
                             placeholder={t('destination')}
@@ -60,7 +70,6 @@ export default function SearchBox() {
 
                     <button 
                         type="submit" 
-                        // onClick={sendForm()}
                         className="cursor-pointer h-full bg-amber-400 px-4 py-2 rounded"
                     >
                         {t('search')}
