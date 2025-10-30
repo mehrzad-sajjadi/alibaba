@@ -13,17 +13,33 @@ export default function SearchBox() {
         destination:"",
         date:""
     });
-    const [error,useError] = setError({
-        origin:"",
-        destination:"",
-        date:""        
-    })
     
-    function changeHandler(){
+    const [error, setError] = useState({
+        origin: "",
+        destination: "",
+        date: ""
+    });
 
+    function validation(){
+        const newError={};
+        if(formData.origin.trim().length==0){
+            // setError({...error,origin:t("enterOrigin")})
+            newError.origin = t("enterOrigin");
+        }
+        if(formData.destination.trim().length==0){
+            newError.destination = t("enterDestination");
+        }
+        setError(newError);
+        console.log(error);
     }
-    function submitHandler(){
     
+
+    function submitHandler(e){
+        e.preventDefault();
+        validation()
+    }
+    function changeHandler(e){
+        setFormData({...formData, [e.target.name]: e.target.value });
     }
 
     return (
@@ -39,9 +55,12 @@ export default function SearchBox() {
                             placeholder={t('origin')}
                         >
                         </input>
-                        <p className="text-red-500 text-xs mt-1">
-                            {t('enterOrigin')}
-                        </p>
+                        {
+                            error.origin && 
+                            <p className="text-red-500 text-xs mt-1">
+                                {error.origin}
+                            </p>
+                        }
                     </div>
 
                     <div className="flex flex-col w-64">
@@ -52,19 +71,18 @@ export default function SearchBox() {
                             placeholder={t('destination')}
                         >
                         </input>
-                        <p className="text-red-500 text-xs mt-1">
-                           {t('enterDestination')}
-                        </p>
+                        {
+                            error.destination &&
+                            <p className="text-red-500 text-xs mt-1">
+                                {error.destination}
+                            </p>
+                        }
                     </div>
-
 
                     <div className="flex flex-col w-64">
                         <Calendar 
                             value={formData.date}
                         />
-                        <p className="text-red-500 text-xs mt-1">
-                            {t('enterDate')}
-                        </p>
                     </div>
 
 

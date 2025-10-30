@@ -10,7 +10,7 @@ export default function Calendar(){
     const [value,setValue] = useState(new Date());
     function changeHandler(event){
         const date = new Date(event);
-        console.log(date);
+        // console.log(date);
     }
 
     return(
