@@ -2,7 +2,9 @@
 
 import Calendar from "@/components/Calendar";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+const Select = dynamic(() => import('react-select'), { ssr: false });
 
 
 export default function SearchBox() {
@@ -13,7 +15,11 @@ export default function SearchBox() {
         destination:"",
         date:""
     });
-    
+    const [child,setChild] = useState();
+    function handleDataFromChild(data){
+        setChild(data);
+    }
+
     const [error, setError] = useState({
         origin: "",
         destination: "",
@@ -30,16 +36,45 @@ export default function SearchBox() {
             newError.destination = t("enterDestination");
         }
         setError(newError);
-        console.log(error);
+
+        return Object.keys(newError).length == 0;
+
     }
     
 
     function submitHandler(e){
         e.preventDefault();
-        validation()
+        if(validation()){
+            console.log(formData);
+        }
     }
-    function changeHandler(e){
-        setFormData({...formData, [e.target.name]: e.target.value });
+
+    
+    const [options, setOptions] = useState([]);
+    useEffect(() => {
+        fetch("/api/cities")
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+            const formatted = data.data.map(city => ({
+                value: city.code,
+                label: city.fa, 
+            }));
+            setOptions(formatted);
+            }
+        });
+    }, []);
+    //Select Origin
+    const [cityOrigin,setCityOrigin] = useState();
+    const selectOriginCity=(e)=>{
+        setCityOrigin(e);
+        console.log(cityOrigin);
+    }
+    //Select Destination
+    const [cityDestination,setCityDestination] = useState();
+    const selectDestinationCity=(e)=>{
+        setCityDestination(e);
+        console.log(cityDestination);
     }
 
     return (
@@ -48,29 +83,28 @@ export default function SearchBox() {
                 <div className="flex justify-center min-h-min items-start gap-4">
 
                     <div className="flex flex-col w-64">
-                        <input
-                            name="origin"
-                            value={formData.origin}
-                            onChange={changeHandler}
+
+                        <Select 
+                            options={options}
+                            onChange={selectOriginCity}
                             placeholder={t('origin')}
-                        >
-                        </input>
-                        {
+                        />
+                        {/* {
                             error.origin && 
                             <p className="text-red-500 text-xs mt-1">
                                 {error.origin}
                             </p>
-                        }
+                        } */}
                     </div>
 
                     <div className="flex flex-col w-64">
-                        <input
+                        <Select 
                             name="destination"
-                            value={formData.destination}
-                            onChange={changeHandler}
+                            options={options}
+                            onChange={selectDestinationCity}
                             placeholder={t('destination')}
-                        >
-                        </input>
+                        />
+
                         {
                             error.destination &&
                             <p className="text-red-500 text-xs mt-1">
@@ -81,10 +115,11 @@ export default function SearchBox() {
 
                     <div className="flex flex-col w-64">
                         <Calendar 
+                            requestData={handleDataFromChild}
                             value={formData.date}
                         />
                     </div>
-
+                    {child}
 
                     <button 
                         type="submit" 
